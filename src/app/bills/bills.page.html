@@ -1,0 +1,134 @@
+<ion-content class="ion-padding bills-content">
+    
+    <!-- Header with Title and Add Button -->
+    <div class="header-container">
+        <h1 class="bills-title">Bills & Owed Tracker</h1>
+        <ion-button fill="clear" class="add-btn" (click)="openAddModal()">
+            <ion-icon name="add" slot="icon-only"></ion-icon>
+        </ion-button>
+    </div>
+
+    <!-- Segment with Custom Badge Colors -->
+    <ion-segment [(ngModel)]="currentSegment" (ionChange)="segmentChanged($event)" class="custom-segment">
+        <ion-segment-button value="pending">
+            <ion-label>
+                Pending 
+                <span class="badge-count" style="background-color: #FFF1D3; color: #b45309;">
+                    {{ pendingBills.length }}
+                </span>
+            </ion-label>
+        </ion-segment-button>
+
+        <ion-segment-button value="paid">
+            <ion-label>Paid</ion-label>
+        </ion-segment-button>
+
+        <ion-segment-button value="owed">
+            <ion-label>
+                Owed 
+                <span class="badge-count" style="background-color: rgba(107, 139, 123, 0.3); color: #1b4332;">
+                    {{ owedItems.length }}
+                </span>
+            </ion-label>
+        </ion-segment-button>
+    </ion-segment>
+
+    <!-- Paid This Month Summary Card -->
+    <ion-card class="summary-card">
+        <div class="summary-content">
+            <div>
+                <p class="summary-label">Paid This Month</p>
+                <h2 class="summary-amount">₱ {{ paidThisMonthTotal | number:'1.2-2' }}</h2>
+            </div>
+            <div class="check-icon-container">
+                <ion-icon name="checkmark-outline"></ion-icon>
+            </div>
+        </div>
+    </ion-card>
+
+    <!-- PENDING BILLS -->
+    <div *ngIf="currentSegment === 'pending'">
+        <div *ngIf="pendingBills.length > 0; else noPending">
+            <ion-card class="bill-card" *ngFor="let bill of pendingBills">
+                <div class="bill-main">
+                    <div class="icon-box">
+                        <ion-icon name="flash-outline"></ion-icon>
+                    </div>
+                    <div class="bill-info">
+                        <h3>{{ bill.note || bill.category }}</h3>
+                        <p>{{ bill.category }}</p>
+                    </div>
+                    <div class="bill-amount">₱{{ bill.amount | number:'1.2-2' }}</div>
+                </div>
+                
+                <hr class="card-divider" />
+                <div class="bill-footer">
+                    <ion-badge class="due-badge" *ngIf="bill.dueDate">Due {{ bill.dueDate | date:'mediumDate' }}</ion-badge>
+                    <ion-checkbox labelPlacement="end" class="custom-checkbox" (ionChange)="markAsPaid(bill)">Mark Paid</ion-checkbox>
+                </div>
+            </ion-card>
+        </div>
+        <ng-template #noPending>
+            <div class="ion-text-center" style="margin-top: 40px; color: #888;">No pending bills.</div>
+        </ng-template>
+    </div>
+
+    <!-- PAID ITEMS -->
+    <div *ngIf="currentSegment === 'paid'">
+        <div *ngIf="paidItems.length > 0; else noPaid">
+            <ion-card class="bill-card" *ngFor="let item of paidItems">
+                <div class="bill-main">
+                    <div class="icon-box" style="background: #dcfce7; color: #16a34a;">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </div>
+                    <div class="bill-info">
+                        <h3>{{ item.note || item.category }}</h3>
+                        <p>{{ item.type }} <span *ngIf="item.person">({{ item.person }})</span></p>
+                    </div>
+                    <div class="bill-amount" style="color: #16a34a;">₱{{ item.amount | number:'1.2-2' }}</div>
+                </div>
+
+                <hr class="card-divider" />
+
+                <!-- Shows the Date it was paid or its due date/creation date in the paid list -->
+                <div class="bill-footer">
+                    <ion-badge class="due-badge" style="background: #dcfce7; color: #16a34a;" *ngIf="item.paidDate">Paid on {{ item.paidDate | date:'mediumDate' }}</ion-badge>
+                </div>
+            </ion-card>
+        </div>
+        <ng-template #noPaid>
+            <div class="ion-text-center" style="margin-top: 40px; color: #888;">No paid bills or debts recorded yet.</div>
+        </ng-template>
+    </div>
+
+    <!-- OWED ITEMS -->
+    <div *ngIf="currentSegment === 'owed'">
+        <div *ngIf="owedItems.length > 0; else noOwed">
+            <ion-card class="bill-card" *ngFor="let owed of owedItems">
+                <div class="bill-main">
+                    <div class="icon-box" style="background: rgba(107, 139, 123, 0.2); color: #1b4332;">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </div>
+                    <div class="bill-info">
+                        <h3>{{ owed.person || 'Unknown Person' }}</h3>
+                        <p>{{ owed.note || 'Owed debt' }}</p>
+                    </div>
+                    <div class="bill-amount">₱{{ owed.amount | number:'1.2-2' }}</div>
+                </div>
+                
+                <hr class="card-divider" />
+
+                <div class="bill-footer">
+                    <ion-badge class="due-badge" style="background: rgba(107, 139, 123, 0.2); color: #1b4332;">Owed to you</ion-badge>
+                    <ion-checkbox labelPlacement="end" class="custom-checkbox" (ionChange)="markAsPaid(owed)">Mark Paid</ion-checkbox>
+                </div>
+            </ion-card>
+        </div>
+        <ng-template #noOwed>
+            <div class="ion-text-center" style="margin-top: 40px; color: #888;">No active owed debts.</div>
+        </ng-template>
+    </div>
+
+    <div style="height: 100px; width: 100%;"></div>
+    <ion-infinite-scroll></ion-infinite-scroll>
+</ion-content>

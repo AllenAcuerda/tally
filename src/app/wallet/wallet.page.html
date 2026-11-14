@@ -1,0 +1,57 @@
+<ion-content class="ion-padding transaction-page">
+  <div class="title">Transaction</div>
+
+  <ion-segment [value]="currentFilter" (ionChange)="segmentChanged($event)" mode="ios" class="custom-segment">
+    <ion-segment-button value="all">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="income">
+      <ion-label>Income</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="expenses">
+      <ion-label>Expenses</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="groupedTransactions.length > 0; else emptyState">
+    <div *ngFor="let group of groupedTransactions">
+      <div class="section-label">{{ group.title }}</div>
+
+      <div class="transaction-item" *ngFor="let tx of group.items">
+        <div class="icon-container" [ngClass]="getCategoryCssClass(tx)">
+          <ion-icon [name]="getCategoryIcon(tx.category)"></ion-icon>
+        </div>
+
+        <div class="transaction-row">
+          <div class="transaction-details">
+            <!-- Clean title (e.g., Utilities) -->
+            <div class="item-title">{{ tx.note || tx.person || tx.category }}</div>
+            
+            <!-- Subtitle shows Due Date for bills, or normal info for other entries -->
+            <div class="item-subtitle">
+              {{ getTransactionSubtitle(tx, group.title) }}
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 4px;">
+            <div class="item-amount" [ngClass]="isIncomeItem(tx) ? 'income-amount' : ''">
+              {{ isIncomeItem(tx) ? '+' : '-' }}₱{{ tx.amount | number:'1.2-2' }}
+            </div>
+
+            <ion-button fill="clear" color="danger" size="small" (click)="confirmDelete(tx.id)">
+              <ion-icon name="trash-outline" slot="icon-only" style="font-size: 16px;"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="ion-text-center ion-padding" style="margin-top: 40px;">
+      <p style="color: #999999; font-size: 13px;">No transactions recorded yet.</p>
+    </div>
+  </ng-template>
+
+  <ion-infinite-scroll></ion-infinite-scroll>
+</ion-content>

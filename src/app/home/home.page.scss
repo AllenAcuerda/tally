@@ -1,27 +1,323 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.custom-home-content {
+  --background: #ffffff;
+  --padding-top: 50px;
+  --padding-start: 20px;
+  --padding-end: 20px;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+
+  .title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111;
+    letter-spacing: -0.2px;
+  }
+
+  .subtitle-text {
+    margin: 2px 0 0 0;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: #888;
+  }
+
+  .profile-circle {
+    width: 40px;
+    height: 40px;
+    background: #e5e7eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      font-size: 20px;
+      color: #4b5563;
+    }
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+.balance-card {
+  background: linear-gradient(135deg, #1C3B2B 0%, #377254 100%);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(27, 67, 50, 0.2);
+  margin-inline: 0;
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
 
-  color: #8c8c8c;
+  .balance-glow {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 130px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
+  }
 
-  margin: 0;
+  .balance-card-content {
+    padding: 20px;
+
+    .sub-text {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.2px;
+    }
+
+    .main-balance-text {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 5px;
+      letter-spacing: -0.5px;
+    }
+
+    .balance-stats-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 30px 0 18px 0;
+    }
+
+    .balance-footer-row {
+      display: flex;
+
+      .stat-group1 {
+        margin-right: 25%;
+      }
+      .stat-group1, .stat-group2 {
+        display: flex;
+        flex-direction: column;
+
+        .stat-label-row {
+          display: flex;
+          align-items: center;
+          margin-bottom: 2px;
+
+          .indicator-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            flex-shrink: 0;
+
+            &.income-dot { background: #2dd36f; }
+            &.expense-dot { background: #eb444a; }
+          }
+        }
+
+        .stat-value-text {
+          color: white;
+          font-size: 0.70rem;
+          font-weight: 400;
+          padding-left: 12px;
+        }
+      }
+    }
+  }
 }
 
-#container a {
-  text-decoration: none;
+.banner-card {
+  border-radius: 18px;
+  box-shadow: none;
+  margin-inline: 0;
+  margin-bottom: 12px;
+  border: 1px solid #EAEAEA;
+
+  &.warning-banner {
+    background: #FFE6C9;
+    border-color: #AE8554;
+
+    .warning-icon {
+      background: #FFF5EA;
+      color: #bc6c25;
+    }
+    .banner-title { color: #bc6c25; }
+    .banner-subtitle { color: #bc6c25; }
+  }
+
+  &.owed-banner {
+    background: #ffffff;
+    border-color: #EAEAEA;
+
+    .owed-title {
+      color: #1C3829;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .banner-subtitle {
+      color: #8E8E93;
+      font-size: 13px;
+      font-weight: 400;
+    }
+  }
+
+  .transparent-item {
+    --background: transparent;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --inner-padding-end: 0;
+  }
+
+  .banner-icon-box {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .banner-title {
+    font-weight: 600;
+    font-size: 0.82rem;
+  }
+
+  .banner-subtitle {
+    font-size: 0.72rem;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  .arrow-icon {
+    color: #1C1C1E;
+    font-size: 18px;
+  }
+}
+
+/* Overlapping Avatars for Owed Banner */
+.avatar-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 58px;
+  height: 38px;
+  margin-right: 6px;
+
+  .avatar-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #C8D6CB;
+    color: #1C3829;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    border: 2px solid #ffffff;
+
+    &.avatar-1 {
+      left: 0;
+      z-index: 1;
+    }
+
+    &.avatar-2 {
+      left: 20px;
+      z-index: 2;
+    }
+  }
+}
+
+.section-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  padding-inline: 5px;
+
+  .section-main-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111;
+  }
+
+  .sub-heading-text {
+    font-size: 0.74rem;
+    font-weight: 400;
+    color: #777;
+    margin-top: 1px;
+  }
+
+  .see-all-text {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1b4332;
+  }
+}
+
+.transactions-container-card {
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
+  margin-inline: 0;
+  background: #ffffff;
+  overflow: hidden;
+
+  .transaction-list {
+    background: transparent;
+    padding: 0;
+
+    .transaction-item {
+      --background: transparent;
+      --padding-start: 12px;
+      --padding-end: 12px;
+      --padding-top: 10px;
+      --padding-bottom: 10px;
+      --border-color: #f0f0f0;
+
+      .txn-icon-wrapper {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+
+        ion-icon { font-size: 18px; }
+
+        &.food-bg { background: #ffe5d9; color: #f4a261; }
+        &.transpo-bg { background: #e0f2fe; color: #0284c7; }
+        &.salary-bg { background: #dcfce7; color: #16a34a; }
+      }
+
+      .txn-title {
+        font-weight: 600;
+        font-size: 0.7rem;
+        color: #222;
+      }
+
+      .txn-date {
+        font-size: 0.7rem;
+        font-weight: 400;
+        color: #888;
+        margin-top: 1px;
+      }
+
+      .txn-amount {
+        font-weight: 600;
+        font-size: 0.7rem;
+
+        &.negative { color: #111; }
+        &.positive { color: #16a34a; }
+      }
+    }
+  }
+}
+
+.page-bottom-spacer {
+  height: 90px;
 }

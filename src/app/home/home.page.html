@@ -1,20 +1,122 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content class="ion-padding custom-home-content">
+  
+  <!-- Header Title & Profile -->
+  <div class="header-wrapper">
+    <div>
+      <h2 class="title">Hello, {{ userName }}</h2>
+      <p class="subtitle-text">Here is your financial status</p>
+    </div>
+    <div class="profile-circle" (click)="goToSettings()" style="cursor: pointer;">
+      <ion-icon name="person-outline"></ion-icon>
+    </div>
   </div>
+
+  <!-- Card: Total Balance  -->
+  <ion-card class="balance-card">
+    <div class="balance-glow"></div>
+    <ion-card-content class="balance-card-content">
+      <div class="sub-text">Total Balance</div>
+      <div class="main-balance-text">₱{{ totalBalance | number:'1.2-2' }}</div>
+
+      <div class="balance-stats-divider"></div>
+
+      <div class="balance-footer-row">
+        <div class="stat-group1">
+          <div class="stat-label-row">
+            <span class="indicator-dot income-dot"></span>
+            <span class="sub-text">Income</span>
+          </div>
+          <div class="stat-value-text">+₱{{ totalIncome | number:'1.2-2' }}</div>
+        </div>
+        <div class="stat-group2">
+          <div class="stat-label-row">
+            <span class="indicator-dot expense-dot"></span>
+            <span class="sub-text">Expenses</span>
+          </div>
+          <div class="stat-value-text">-₱{{ totalExpense | number:'1.2-2' }}</div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Notification banner for bills -->
+  <ion-card class="banner-card warning-banner" (click)="navigateToBills('pending')" style="cursor: pointer;">
+    <ion-item lines="none" class="transparent-item">
+      <div slot="start" class="banner-icon-box warning-icon">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </div>
+      <ion-label>
+        <div class="banner-title">Payment Coming Up</div>
+        <div class="banner-subtitle">{{ nearestBillText }}</div>
+      </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end" class="arrow-icon"></ion-icon>
+    </ion-item>
+  </ion-card>
+
+  <!-- Notification banner for owed to you -->
+  <ion-card class="banner-card owed-banner" (click)="navigateToBills('owed')">
+    <ion-item lines="none" class="transparent-item">
+      
+      <!-- Avatars -->
+      <div slot="start" class="avatar-group">
+        <ng-container *ngIf="owedInitials.length > 0; else defaultAvatar">
+          <div class="avatar-badge avatar-1" *ngIf="owedInitials[0]">{{ owedInitials[0] }}</div>
+          <div class="avatar-badge avatar-2" *ngIf="owedInitials[1]">{{ owedInitials[1] }}</div>
+        </ng-container>
+        <ng-template #defaultAvatar>
+          <div class="avatar-badge avatar-1">-</div>
+        </ng-template>
+      </div>
+
+      <!-- Title and Subtitle Text -->
+      <ion-label>
+        <div class="banner-title owed-title">Owed to you</div>
+        <div class="banner-subtitle">{{ owedSubtitle }}</div>
+      </ion-label>
+
+      <ion-icon name="chevron-forward-outline" slot="end" class="arrow-icon"></ion-icon>
+    </ion-item>
+  </ion-card>
+
+  <!-- Recent Transactions Header -->
+  <div class="section-header-container">
+    <div>
+      <div class="section-main-title">Recent Transaction</div>
+      <div class="sub-heading-text">Your Latest Activity</div>
+    </div>
+    <div class="see-all-text" (click)="navigateToTransaction('transaction')" style="cursor: pointer;">See all</div>
+  </div>
+
+  <!-- Recent Transactions Container Card-->
+  <ion-card class="transactions-container-card">
+    <ion-list lines="full" class="transaction-list">
+      
+      <ion-item 
+        *ngFor="let tx of transactions; let last = last" 
+        [lines]="last ? 'none' : 'full'" 
+        class="transaction-item">
+        
+        <div slot="start" [ngClass]="getCategoryBgClass(tx.category)" class="txn-icon-wrapper">
+          <ion-icon [name]="getCategoryIcon(tx.category)"></ion-icon>
+        </div>
+        
+        <ion-label>
+          <div class="txn-title">{{ tx.note || tx.category }}</div>
+          <div class="txn-date">{{ tx.date | date:'mediumDate' }}</div>
+        </ion-label>
+        
+        <div slot="end" class="txn-amount" [ngClass]="tx.type === 'Income' ? 'positive' : 'negative'">
+          {{ tx.type === 'Income' ? '+' : '-' }}₱{{ tx.amount | number:'1.2-2' }}
+        </div>
+      </ion-item>
+
+      <!-- If no record -->
+      <div *ngIf="transactions.length === 0" class="ion-text-center ion-padding" style="padding: 24px;">
+        <p style="color: #6b7280; font-size: 14px; margin: 0;">No transactions recorded yet.</p>
+      </div>
+
+    </ion-list>
+  </ion-card>
+
+  <div class="page-bottom-spacer"></div>
 </ion-content>

@@ -1,0 +1,68 @@
+.custom-tab-bar {
+  --background: #ffffff;
+  position: relative;
+  padding: 15px;
+  border-radius: 2cap;
+  border: none;
+  box-shadow: 0px -4px 16px rgba(0, 0, 0, 0.10);
+}
+
+.fab-spacer {
+  flex: 1;
+}
+
+ion-tab-button {
+  margin-bottom: 2cap;
+  position: relative;
+  flex: 1;
+  
+  ion-icon, 
+  ion-label {
+    color: #888888;
+    transition: color 0.3s ease-in-out;
+  }
+}
+
+ion-tab-button.tab-selected {
+  ion-icon, 
+  ion-label {
+    color: #1C3B2B; 
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #1C3B2B;
+    border-radius: 50%;
+  }
+}
+
+.center-fab {
+  bottom: 5%;
+  background-color: white;
+  padding: 3px;
+  border-radius: 100%;
+  z-index: 1001;
+
+  ion-fab-button {
+    --background: #1C3B2B; 
+    --color: #ffffff;      
+  }
+}
+
+.bottom-nav-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.bottom-nav-container {
+  z-index: 1000 !important;
+}

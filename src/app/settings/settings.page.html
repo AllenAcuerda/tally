@@ -1,0 +1,47 @@
+<ion-content class="ion-padding settings-content">
+    
+    <h1 class="settings-title">Settings</h1>
+
+    <ion-card class="profile-card" (click)="changeName()" style="cursor: pointer;">
+        <div class="profile-content">
+            <div class="avatar-circle">{{ getInitials() }}</div>
+            <div class="profile-info">
+                <h2>{{ userName }}</h2>
+            </div>
+        </div>
+    </ion-card>
+
+    <ion-label class="section-label">PREFERENCE</ion-label>
+
+    <ion-card class="settings-card">
+        <div class="setting-item" (click)="changeName()" style="cursor: pointer;">
+            <div class="setting-left">
+                <div class="icon-box darkmode-icon">
+                    <ion-icon name="contrast-outline"></ion-icon>
+                </div>
+                <div class="setting-text">
+                    <h3>Change your name</h3>
+                </div>
+            </div>
+            <div class="setting-right">
+                <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
+            </div>
+        </div>
+    </ion-card>
+
+    <ion-label class="section-label">DATA MANAGEMENT</ion-label>
+
+    <ion-card class="settings-card">
+        <div class="setting-item" (click)="clearAllData()" style="cursor: pointer;">
+            <div class="setting-left">
+                <div class="icon-box danger-icon">
+                    <ion-icon name="trash-outline"></ion-icon>
+                </div>
+                <div class="setting-text">
+                    <h3 class="danger-text">Clear all data</h3>
+                </div>
+            </div>
+        </div>
+    </ion-card>
+
+</ion-content>

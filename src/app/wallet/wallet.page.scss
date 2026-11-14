@@ -1,0 +1,128 @@
+.transaction-page {
+  --background: #ffffff !important;
+  --padding-top: 50px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600; 
+  color: #111111;
+  padding-left: 0;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.custom-segment {
+  background: #EFEFF0;
+  border-radius: 28px;
+  padding: 4px;
+  margin-bottom: 24px;
+  min-height: 42px;
+
+  ion-segment-button {
+    --indicator-color: #ffffff;
+    --indicator-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.06);
+    --border-radius: 24px;
+    font-weight: 400;
+    font-size: 13px;
+    color: #7A7A7A;
+    letter-spacing: -0.2px;
+
+    &.segment-button-checked {
+      color: #111111;
+      font-weight: 600;
+    }
+  }
+}
+
+.section-label {
+  font-size: 14px;
+  font-weight: 500; 
+  color: #8C8C8C;
+  margin: 20px 0 10px 0;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  .icon-container {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+
+    ion-icon {
+      font-size: 20px;
+    }
+
+    &.food {
+      background-color: #FFE5D0;
+      color: #E67E22;
+    }
+    &.transport {
+      background-color: #E2ECFF;
+      color: #3498DB;
+    }
+    &.income {
+      background-color: #E1F7E7;
+      color: #2ECC71;
+    }
+    &.shopping {
+      background-color: #F7E1F7;
+      color: #9B59B6;
+    }
+  }
+
+  .transaction-row {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #F2F2F2;
+
+    .transaction-details {
+      flex: 1;
+
+      .item-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: #1A1A1A;
+        margin-bottom: 2px;
+        letter-spacing: -0.2px;
+      }
+
+      .item-subtitle {
+        font-size: 11px;
+        font-weight: 400; 
+        color: #999999;
+        letter-spacing: -0.1px;
+      }
+    }
+
+    .item-amount {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111111;
+      letter-spacing: -0.3px;
+      padding-left: 10px;
+    }
+  }
+}
+
+.item-amount {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111111;
+
+  &.income-amount {
+    color: #2ECC71 !important; // Green text for income
+  }
+}

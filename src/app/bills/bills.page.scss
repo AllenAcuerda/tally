@@ -1,0 +1,189 @@
+
+.bills-content {
+    --background: #ffffff;
+    --padding-top: 50px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    
+    .bills-title {
+        font-size: 22px;
+        font-weight: 600; 
+        letter-spacing: -0.3px;
+        color: #111111;
+        margin: 0;
+    }
+
+    .add-btn {
+        --background: #e8edea;
+        --color: #1a3c34;
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        margin: 0;
+    }
+}
+
+.custom-segment {
+    background: #f4f6f5;
+    border-radius: 14px;
+    padding: 3px;
+    margin-bottom: 20px;
+    
+    ion-segment-button {
+        --background-checked: #ffffff;
+        --color: #888888;
+        --color-checked: #1a3c34;
+        --indicator-color: transparent;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: 400; 
+        text-transform: capitalize;
+        
+        .badge-count {
+            background: #e8edea;
+            color: #1a3c34;
+            padding: 1px 5px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 500;
+            margin-left: 4px;
+        }
+    }
+}
+
+.summary-card {
+    background: #1a3c34;
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 18px;
+    margin: 0 0 20px 0;
+    box-shadow: 0 4px 12px rgba(26, 60, 52, 0.15);
+
+    .summary-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .summary-label {
+            font-size: 13px;
+            font-weight: 300; 
+            color: #a3b8b2;
+            margin: 0 0 4px 0;
+        }
+
+        .summary-amount {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        .check-icon-container {
+            background: rgba(255, 255, 255, 0.15);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            ion-icon {
+                font-size: 18px;
+                color: #ffffff;
+            }
+        }
+    }
+}
+
+.bill-card {
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin: 0 0 14px 0;
+
+    .bill-main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .icon-box {
+            background: #fef6e7;
+            color: #d4a373;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .bill-info {
+            flex-grow: 1;
+
+            h3 {
+                font-size: 15px;
+                font-weight: 500; 
+                color: #111111;
+                margin: 0 0 2px 0;
+            }
+
+            p {
+                font-size: 12px;
+                font-weight: 400; 
+                color: #888888;
+                margin: 0;
+            }
+        }
+
+        .bill-amount {
+            font-size: 15px;
+            font-weight: 600; 
+            color: #111111;
+        }
+    }
+
+    .card-divider {
+        border: none;
+        height: 1px;
+        background: #f4f4f4;
+        margin: 10px 0;
+    }
+
+    .bill-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .due-badge {
+            background: #fef6e7;
+            color: #b8860b;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+        }
+
+        .custom-checkbox {
+            --checkbox-background: #ffffff;        
+            --checkbox-background-checked: #ffffff; 
+            --border-color: #1a3c34;                
+            --border-color-checked: #1a3c34;      
+            --checkmark-color: #1a3c34;            
+            --border-radius: 6px;                   
+            font-size: 12px;
+            font-weight: 500;
+            color: #1a3c34;
+        }
+    }
+}

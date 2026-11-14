@@ -1,0 +1,145 @@
+<ion-content class="ion-padding modal-content">
+  
+  <!-- Header -->
+  <div class="modal-header">
+    <h2>Add new entry</h2>
+    <p>Keep your money story up to date</p>
+  </div>
+
+  <!-- Type Selection -->
+  <ion-segment [value]="selectedType" (ionChange)="selectType($event)" mode="md" class="custom-segment">
+    <ion-segment-button value="Expenses">
+      <ion-label>Expenses</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Income">
+      <ion-label>Income</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Bill"> 
+      <ion-label>Bill</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Owed">
+      <ion-label>Owed</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Amount Input -->
+  <div class="input-section">
+    <span class="input-label">Amount</span>
+    <div class="amount-container">
+      <span class="currency-symbol">₱</span>
+      <ion-input 
+        type="text" 
+        inputmode="decimal"
+        placeholder="0.00" 
+        [value]="formattedAmount"
+        (ionInput)="formatAmount($event)"
+        class="custom-ion-input">
+      </ion-input>
+    </div>
+    <div class="input-underline"></div>
+  </div>
+
+  <!-- Change Title -->
+  <div class="input-section">
+    <span class="input-label">Title or note</span>
+    <ion-input 
+      type="text" 
+      placeholder="What is this for?" 
+      [(ngModel)]="titleOrNote" 
+      class="text-input-box">
+    </ion-input>
+  </div>
+
+  <!-- Person Name Input if Owed is selected -->
+  <div class="input-section" *ngIf="selectedType === 'Owed'">
+    <span class="input-label">Person Name</span>
+    <ion-input 
+      type="text" 
+      placeholder="Who is this owed to or from?" 
+      [(ngModel)]="personName" 
+      class="text-input-box">
+    </ion-input>
+  </div>
+
+  <!-- Category Selection -->
+  <div class="input-section">
+    <span class="input-label">Category</span>
+    <ion-segment [(ngModel)]="selectedCategory" scrollable="true" mode="md" class="category-segment">
+      <ion-segment-button value="Food">
+        <ion-icon name="restaurant-outline"></ion-icon>
+        <ion-label>Food</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="Transportation">
+        <ion-icon name="car-outline"></ion-icon>
+        <ion-label>Transportation</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="Utilities">
+        <ion-icon name="flash-outline"></ion-icon>
+        <ion-label>Utilities</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="Shopping">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+        <ion-label>Shopping</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="Salary">
+        <ion-icon name="card-outline"></ion-icon>
+        <ion-label>Salary</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- Transaction Date Picker -->
+  <div class="input-section">  
+    <ion-item class="custom-date-item" lines="none">
+      <div class="date-label-container" slot="start">
+        <div class="date-icon-box">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </div>
+        <span>Date</span>
+      </div>
+      
+      <ion-datetime-button datetime="datetimeModal" slot="end"></ion-datetime-button>
+    </ion-item>
+  </div>
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime 
+        id="datetimeModal" 
+        presentation="date" 
+        [(ngModel)]="selectedDate">
+      </ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Due Date Picker if Bill is selected -->
+  <div class="input-section" *ngIf="selectedType === 'Bill'">  
+    <ion-item class="custom-date-item" lines="none">
+      <div class="date-label-container" slot="start">
+        <div class="date-icon-box">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </div>
+        <span>Due Date</span>
+      </div>
+      
+      <ion-datetime-button datetime="dueDatetimeModal" slot="end"></ion-datetime-button>
+    </ion-item>
+  </div>
+
+  <ion-modal [keepContentsMounted]="true" *ngIf="selectedType === 'Bill'">
+    <ng-template>
+      <ion-datetime 
+        id="dueDatetimeModal" 
+        presentation="date" 
+        [(ngModel)]="dueDate">
+      </ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <ion-button expand="block" class="save-entry-btn" (click)="saveEntry()">Save entry</ion-button>
+
+</ion-content>
